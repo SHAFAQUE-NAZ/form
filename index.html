@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript Form Validation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <section id="form">
+        <h1 class="h-primary center">User Details Form</h1>
+        <div id="form-box">
+            <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post"
+                autocomplete="on">
+                <div class="form-group">
+                    <label for="fname"> Name: </label>
+                    <input type="text" name="fname">
+                </div>
+                <div class="form-group">
+                    <label for="faddress"> Address : </label>
+                    <textarea name="faddress" id="" cols="30" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Date"> DOB :</label>
+                    <input type="date" id="masterDataFeedDate_Id" name="Date">
+                </div>
+
+                <div class="form-group">
+                    <label for="gender"> Gender: </label>
+                    <select id="gender" name="gender">
+                        <option value="Select gender">Select gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="container"> Hobbies: </label>
+                    <input type="checkbox" name="container" value="cric"><span class="hobby"> Cricket</span>
+                    <input type="checkbox" name="container" value="dan"><span class="hobby">Dance</span>
+                    <input type="checkbox" name="container" value="mus"><span class="hobby">Music</span>
+                    <input type="checkbox" name="container" value="trav"><span class="hobby">Travelling</span>
+                    <input type="checkbox" name="container" value="cycle"><span class="hobby">Cycling</span>
+                    <!--<input type="checkbox" name="container" value="oth"  ><span class="hobby" id="oth">Other</span>-->
+
+                    <input type="checkbox" id="chkOther" onclick="ShowHideDiv(this)" />
+                    <span class="hobby"> Other</span>
+
+
+                    <div id="dvOther" style="display: none">
+
+                        <input type="text" id="txtNumber">
+                    </div>
+                    <div>
+                        <p id="messages" style="display: none;"></p>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+    </section>
+
+
+
+
+
+    <script>
+        function validateForm() {
+            var x = document.forms["myForm"]["fname"].value;
+            var y = document.forms["myForm"]["faddress"].value;
+            if (x == "" && y == "") {
+                alert("Name  and address must be filled out");
+                return false;
+            }
+            else if (x == "") {
+                alert("name must be filled out");
+                return false;
+            }
+            else if (y == "") {
+                alert("address must be filled out");
+            }
+
+            var dateCheck = document.getElementById('masterDataFeedDate_Id').value;
+            var myDate = new Date(dateCheck);
+            var today = new Date();
+            if (myDate > today) {
+                alert("The date of birth is greater that current date");
+                return false;
+            }
+
+            var valueDate = document.getElementById('masterDataFeedDate_Id').value;
+            if (valueDate == null || valueDate == '') {
+                alert('Date is empty');
+                return false;
+            }
+
+
+
+
+            /////gender///
+            var g1 = document.getElementById('gender').value;
+            if (g1 == "Select gender") {
+                alert("please select gender");
+                return false;
+            }
+
+
+            ///hobies///
+            var hob = document.myForm.container;
+            for (i = 0; i < hob.length; i++) {
+                if (hob[i].checked == true) {
+                    return true;
+
+                }
+
+            }
+
+
+            document.getElementById("messages").innerHTML = alert("Please select any hobby");
+            return false
+        }
+
+        function ShowHideDiv(chkOther) {
+            var dvOther = document.getElementById("dvOther");
+            dvOther.style.display = chkOther.checked ? "block" : "none";
+
+
+        }
+    </script>
+</body>
+
+</html>
